@@ -1,0 +1,5 @@
+[{"mauth_base_url": "https://mauth-sandbox.imedidata.net",
+  "mauth_api_version": "v1",
+  "app_uuid": “xxxxx”,
+  "private_key_file": "./R/Config/mcc-pri.txt"
+}]
