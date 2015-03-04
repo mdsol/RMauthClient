@@ -1,0 +1,2 @@
+export(RMauthClient, composeMAuthHeader, makeMAuthCall)
+import(base64enc, openssl, httr, jsonlite, digest, PKI)

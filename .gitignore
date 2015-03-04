@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+R/Config/*.json
+R/Config/*.pem
+R/Config/*.txt
+R/Config/*.yml
+.DS_Store
