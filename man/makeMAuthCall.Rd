@@ -15,6 +15,7 @@
   \item{base_url}{base url of the service you are calling}
   \item{route}{the route of the service you want to get a response from}
   \item{body}{Body of the request, ie. for POST requests.}
+  \item{header_overrides}{any additional headers or overrides (ie. Content-Type) in a named list}
   
 }
 %\details{
