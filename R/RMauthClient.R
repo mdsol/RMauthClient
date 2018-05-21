@@ -1,10 +1,3 @@
-#Mauth Client for R
-library(PKI)
-library(digest)
-library(jsonlite)
-library(httr)
-library(openssl)
-
 RMauthClient<-setClass(
   "RMauthClient",
   slots=c(
@@ -15,16 +8,24 @@ RMauthClient<-setClass(
   )
 )
 
-setMethod("initialize", "RMauthClient", function(.Object, app_uuid=NULL, mauth_base_url=NULL, mauth_api_version="v1", private_key=NULL){
-  requiredConfigs<- c("app_uuid", "mauth_base_url", "mauth_api_version", "private_key")
-  
-  lapply(seq(1,length(requiredConfigs)), function(c){
-    if(is.null(eval(as.symbol(requiredConfigs[c])))){
-      stop(paste("missing config element", requiredConfigs[c]))
-    }
-  })
-  
-  .Object@app_uuid <- app_uuid
+setMethod("initialize", 
+          "RMauthClient", 
+          function(.Object, 
+                   app_uuid=NULL, 
+                   mauth_base_url=NULL, 
+                   mauth_api_version="v1", 
+                   private_key=NULL
+                   ) 
+  {
+            requiredConfigs<- c("app_uuid", "mauth_base_url", "mauth_api_version", "private_key")
+            
+            lapply(seq(1,length(requiredConfigs)), function(c){
+              if(is.null(eval(as.symbol(requiredConfigs[c])))){
+                stop(paste("missing config element", requiredConfigs[c]))
+              }
+            })
+            
+            .Object@app_uuid <- app_uuid
   .Object@mauth_base_url <- mauth_base_url
   .Object@mauth_api_version <- mauth_api_version
   .Object@private_key <- private_key

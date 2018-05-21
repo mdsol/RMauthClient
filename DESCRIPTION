@@ -7,12 +7,11 @@ Author: Pramod Somashekar <psomashekar@mdsol.com>
 Maintainer: Pramod Somashekar <psomashekar@mdsol.com>
 Depends: 
   R (>= 2.9.0), 
-  base64enc, 
-  digest, 
-  jsonlite, 
-  httr, 
+Imports:
   openssl, 
   PKI
+Suggests:
+  RUnit
 Remotes:
   github::mdsol/PKI
 Description: This is an MAuth v1 client for R. It can enable you to get and post requests via MAuth....
