@@ -1,6 +1,5 @@
 library(RUnit)
-
-source("R/RMauthClient.R")
+library(RMauthClient)
 
 test.suite <- defineTestSuite("RMauthClient",
                               dirs = file.path("tests"),

@@ -6,8 +6,11 @@ Date: 2015-03-03
 Author: Pramod Somashekar <psomashekar@mdsol.com>
 Maintainer: Pramod Somashekar <psomashekar@mdsol.com>
 Depends: 
-  R (>= 2.9.0), 
+   R (>= 2.10)
 Imports:
+  httr,
+  jsonlite,
+  methods,
   openssl, 
   PKI
 Suggests:
@@ -15,5 +18,5 @@ Suggests:
 Remotes:
   github::mdsol/PKI
 Description: This is an MAuth v1 client for R. It can enable you to get and post requests via MAuth....
-License: MIT + file LICENSE
+License: MIT + LICENSE
 

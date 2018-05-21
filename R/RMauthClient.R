@@ -70,7 +70,7 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   signed_string<-sign_request(make_request_string(RMauthClientObject@app_uuid, route, method, body, request_time), 
                               private_key)
   
-  make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
+  make_headers(RMauthClientObject@app_uuid, base64_encode(signed_string), request_time)
 }
 
 makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", header_overrides=NULL)
