@@ -1,7 +1,12 @@
+library(RMauthClient)
+library(openssl)
+# 
+
+data(testKey)
+
 test.RMAuthClientHeaderCompositionEncodingAndConfigLoad<-function()
 {
   #setup
-  testKey<-readRDS("tests/testKey")
   mauth_base_url<-"https://mauth-sandbox.imedidata.net"
   mauth_api_version<-"v1"
   app_uuid<- "aaabbbcc-dddd-abcd-abcd-eff6b4b0b637"
@@ -36,7 +41,7 @@ test.RMAuthClientHeaderCompositionEncodingAndConfigLoad<-function()
   #it should have base64 encoded the message in the following way
   checkTrue(
   paste("MWS ", c@app_uuid, ":",
-  base64encode(
+  base64_encode(
   PKI.pencrypt(generate_padding(charToRaw(sha512(paste("GET\n/api/v1/tests\n\n",c@app_uuid,"\n",headerVal$`X-MWS-Time`,sep = ""))),256), 
                key=PKI.load.key(testKey,format = "PEM", private = T))
   ),sep="")==
@@ -48,7 +53,6 @@ test.RMAuthClientHeaderCompositionEncodingAndConfigLoad<-function()
 test.RMAuthClientStops<-function()
 {
   #setup
-  testKey<-readRDS("tests/testKey")
   mauth_base_url<-"https://mauth-sandbox.imedidata.net"
   mauth_api_version<-"v1"
   app_uuid<- "aaabbbcc-dddd-abcd-abcd-eff6b4b0b637"

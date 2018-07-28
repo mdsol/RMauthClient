@@ -1,5 +1,6 @@
 #this is a basic example of how the R Mauth Client can be utilized....
 library(base64enc)
+library(httr)
 library(openssl)
 library(PKI)
 library(RMauthClient)

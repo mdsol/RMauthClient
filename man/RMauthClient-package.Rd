@@ -1,5 +1,5 @@
-\name{RMauthClient}
-\alias{RMauthClient}
+\name{RMauthClient-package}
+\alias{RMauthClient-package}
 \docType{package}
 \title{
 RMauthClient
@@ -34,8 +34,18 @@ Maintainer: Pramod Somashekar <psomashekar@mdsol.com>
 \seealso{
 }
 \examples{
-c<-RMauthClient(app_uuid="aaabbbcc-dddd-abcd-abcd-eff6b4b0b637", mauth_base_url="https://mauth-sandbox.imedidata.net", private_key=testKey)
-response<-makeMAuthCall(c, "GET","https://eureka-sandbox.imedidata.net", "/v1/apis", "")
-f<-fromJSON(content(d,"text")) #f is now a valid frame.
+library(httr)
+library(jsonlite)
+data(testKey)
+
+c <- RMauthClient(app_uuid="aaabbbcc-dddd-abcd-abcd-eff6b4b0b637", 
+                  mauth_base_url="https://mauth-sandbox.imedidata.net",
+                  private_key=testKey)
+response <- makeMAuthCall(c, 
+                         "GET",
+                         "https://eureka-sandbox.imedidata.net",
+                         "/v1/apis", 
+                         "")
+f <- fromJSON(content(response, "text")) #f is now a valid frame.
 
 }

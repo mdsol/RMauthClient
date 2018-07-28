@@ -33,6 +33,15 @@
   \code{\link{RMauthClient-package}}
 }
 \examples{
-  c<-RMauthClient(app_uuid="aaabbbcc-dddd-abcd-abcd-eff6b4b0b637", mauth_base_url="https://mauth-sandbox.imedidata.net", private_key=testKey)
-  headers<-composeMAuthHeader(c, "GET","https://eureka-sandbox.imedidata.net", "/v1/apis", "")
+  data(testKey) 
+  
+  c <- RMauthClient(app_uuid="aaabbbcc-dddd-abcd-abcd-eff6b4b0b637", 
+                    mauth_base_url="https://mauth-sandbox.imedidata.net",
+                    private_key=testKey)
+
+  headers<-composeMAuthHeader(c, 
+                              "GET",
+                              "https://eureka-sandbox.imedidata.net",
+                              "/v1/apis",
+                              "")
 }

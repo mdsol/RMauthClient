@@ -1,2 +1,20 @@
-export(RMauthClient, composeMAuthHeader, makeMAuthCall)
-import(base64enc, openssl, httr, jsonlite, digest, PKI)
+export(RMauthClient)
+export(composeMAuthHeader)
+export(makeMAuthCall)
+
+importFrom(httr, add_headers)
+importFrom(httr, content)
+importFrom(httr, GET)
+importFrom(httr, POST)
+
+importFrom(jsonlite, fromJSON)
+
+importFrom(methods, new)
+
+importFrom(openssl, base64_encode)
+importFrom(openssl, sha512)
+
+importFrom(PKI, PKI.load.key)
+importFrom(PKI, PKI.pencrypt)
+
+importFrom(stats, setNames)
