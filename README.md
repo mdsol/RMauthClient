@@ -5,23 +5,27 @@ This simple library can enable you to post and get requests via MAuth v1 in R. I
 
 ## Usage
 
-First of all, you will need a special version of the PKI library for R which has SHA512 support, and support for private_encrypt (deprecated in openssl, replaced by sign(), though slightly different from what MAuth v1 needs).
+### Prerequisites
 
-Before you install this though, make sure you have the libraries `base64enc` and `openssl` pre-installed via the `install.packages` command.
-
-Using the base PKI library, I added code to support SHA512 and included this version of PKI all tar'd up in /PKI_SHA512.
-
-To install the above libraries, please run the following from the root of this repo:
+Install the necessary packages using Brew:
 
 ```
-Rscript PKI_SHA512/install_prereqs.R
+brew install r
+brew install libgit2
 ```
 
-The special PKI version, and the other libraries will be installed for you automatically.
+Install the necessary R libraries by running the following from the root of this repository:
 
-Other than that, you will have to package the RMauthClient library, by doing the following:
+```
+Rscript ./install_prereqs.R
+```
 
-You can use RStudio to build a package by going to `Build>Build Source Package`, which you will then use to install (ie. `R CMD install ....`)
+### Create Source Package
+
+You can package the RMauthClient library using RStudio:
+  - Open the `RMauthClient.Rproj` file
+  - In the menu bar, select `Build > Build Source Package`
+  - From the command line, run `R CMD install RMauthClient_<VERSION_NUM>.tar.gz` for the newly built tarball
 
 Note, that depending on your version of the compiler and OS, you may receive an error when trying to install the library. But, nevertheless, the library should install properly.
 
