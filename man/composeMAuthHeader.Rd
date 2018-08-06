@@ -11,7 +11,7 @@
 }
 \arguments{
   \item{RMauthClientObject}{Valid RMauthClient object.}
-  \item{method}{either "GET" or "POST"}
+  \item{method}{either "GET", "POST", "PUT" or "DELETE"}
   \item{base_url}{base url of the service you are calling}
   \item{route}{the route of the service you want to get a response from}
   \item{body}{Body of the request, ie. for POST requests. (Optional)}
