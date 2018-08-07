@@ -91,11 +91,18 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", he
   {
     GET(paste(base_url,route,sep = ""), 
         add_headers(.headers = mAuthHeader))  
-  }  else if (method=="POST"){
+  } else if (method=="POST"){
     POST(paste(base_url,route,sep = ""), 
          add_headers(.headers = mAuthHeader),
          body=body)
+  } else if (method=="PUT"){
+    PUT(paste(base_url,route,sep = ""), 
+        add_headers(.headers = mAuthHeader),
+        body=body)
+  } else if (method=="DELETE"){
+    DELETE(paste(base_url,route,sep = ""), 
+          add_headers(.headers = mAuthHeader))
   } else {
-    stop("Not Supported HTTP Verb. Please use only GET or POST.")
+    stop("Not Supported HTTP Verb. Please use only GET, POST, PUT or DELETE.")
   }
 }
