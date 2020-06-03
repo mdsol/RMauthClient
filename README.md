@@ -50,10 +50,10 @@ myMauthClient<- RMauthClient(app_uuid="12345678-4599-47db-b57d-b6e750596500",
                              private_key=key)
 ```
 
-3) Now that you have an instance of the RMauthClient class, you may use it to make valid calls to your resource:
+3) Now that you have an instance of the RMauthClient class, you may use it to make valid calls to your resource.  Note there is an optional "queryString" parameter.  The route param should not include a query string as mauth v1 only signs the base route, so the client has to do the same.  Here is an example call: 
 
 ```
-response<-makeMAuthCall(myMauthClient, "GET", "https://eureka-sandbox.imedidata.net", "/v1/apis", "")
+response<-makeMAuthCall(RMauthClientObject=myMauthClient, method="GET", base_url="https://eureka-sandbox.imedidata.net", route="/v1/apis")
 ```
 
 4) I use httr to perform the GET and POST requests to the resources, therefore, you can get your reponse blob out either using:
