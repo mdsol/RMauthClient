@@ -50,7 +50,6 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_request_string<-function(app_uuid, route, http_req_method, message_body, time)
   {
     s<-sprintf('%s\n%s\n%s\n%s\n%s', http_req_method, route, message_body, app_uuid, time)
-    print(paste0("request string before sha512 hashing: ", s))
     sha512(s)
   }
 
