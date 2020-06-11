@@ -9,19 +9,13 @@ First of all, you will need a special version of the PKI library for R which has
 
 Before you install this though, make sure you have the libraries `base64enc` and `openssl` pre-installed via the `install.packages` command.
 
-Using the base PKI library, I added code to support SHA512 and included this version of PKI all tar'd up in /PKI_SHA512.
+Using the base PKI library, I added code to support SHA512 and included this version of PKI in a fork [mdsol/PKI](https://github.com/mdsol/PKI).
 
-To install the above libraries, please run the following from the root of this repo:
+You should first install the above libraries `base64enc` and `openssl`, as well as installing `mdsol/PKI` via `devtools::install_github` before proceeding.
 
-```
-Rscript PKI_SHA512/install_prereqs.R
-```
+To install this library, you can also do so by executing `devtools::install_github`.
 
-The special PKI version, and the other libraries will be installed for you automatically.
-
-Other than that, you will have to package the RMauthClient library, by doing the following:
-
-You can use RStudio to build a package by going to `Build>Build Source Package`, which you will then use to install (ie. `R CMD install ....`)
+You can also use RStudio to build a package by going to `Build>Build Source Package`, which you will then use to install (ie. `R CMD install ....`)
 
 Note, that depending on your version of the compiler and OS, you may receive an error when trying to install the library. But, nevertheless, the library should install properly.
 
