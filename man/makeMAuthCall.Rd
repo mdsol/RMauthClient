@@ -14,6 +14,8 @@
   \item{method}{either "GET", "POST", "PUT" or "DELETE"}
   \item{base_url}{base url of the service you are calling}
   \item{route}{the route of the service you want to get a response from}
+  \item{queryString}{optional query string value}
+  \item{retryAttempts}{optional number of attempts to retry request before returning non-200 response}
   \item{body}{Body of the request, ie. for POST requests.}
   \item{header_overrides}{any additional headers or overrides (ie. Content-Type) in a named list}
   
