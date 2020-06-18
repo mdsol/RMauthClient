@@ -73,7 +73,7 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64_encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString="", body="", header_overrides=NULL)
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString="", retryAttempts=1, body="", header_overrides=NULL)
 {
 
   
@@ -89,23 +89,18 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString
   }
 
   mAuthHeader<-setNames(as.character(mAuthHeader), names(mAuthHeader))
-
+  requestURL = paste0(base_url,fullRoute)
+  
   if(method=="GET")
   {
-    GET(paste(base_url,fullRoute,sep = ""),
-        add_headers(.headers = mAuthHeader))
+    RETRY(verb = "GET", url = requestURL, config = add_headers(.headers = mAuthHeader), times = retryAttempts)
   } else if (method=="POST"){
-    POST(paste(base_url,fullRoute,sep = ""),
-         add_headers(.headers = mAuthHeader),
-         body=body)
+    RETRY(verb = "POST", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, times = retryAttempts)
   } else if (method=="PUT"){
-    PUT(paste(base_url,fullRoute,sep = ""),
-        add_headers(.headers = mAuthHeader),
-        body=body)
+    RETRY(verb = "PUT", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, times = retryAttempts)
   } else if (method=="DELETE"){
-    DELETE(paste(base_url,fullRoute,sep = ""),
-          add_headers(.headers = mAuthHeader))
+    RETRY(verb = "DELETE", url = requestURL, config = add_headers(.headers = mAuthHeader), times = retryAttempts)
   } else {
-    stop("Not Supported HTTP Verb. Please use only GET, POST, PUT or DELETE.")
+    stop("Unsupported HTTP Verb. Please use only GET, POST, PUT or DELETE.")
   }
 }
