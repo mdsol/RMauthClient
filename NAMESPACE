@@ -6,6 +6,8 @@ importFrom(httr, add_headers)
 importFrom(httr, content)
 importFrom(httr, GET)
 importFrom(httr, POST)
+importFrom(httr, RETRY)
+importFrom(httr, DELETE)
 
 importFrom(jsonlite, fromJSON)
 
