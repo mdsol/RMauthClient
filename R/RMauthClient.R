@@ -73,7 +73,7 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64_encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString="", retryAttempts=1, body="", header_overrides=NULL)
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString="", retryAttempts=1, body="",pause_cap=1800, header_overrides=NULL)
 {
 
   
@@ -95,7 +95,7 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString
   {
     RETRY(verb = "GET", url = requestURL, config = add_headers(.headers = mAuthHeader), times = retryAttempts)
   } else if (method=="POST"){
-    RETRY(verb = "POST", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, pause_cap = 60, times = retryAttempts)
+    RETRY(verb = "POST", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, pause_cap=pause_cap, times = retryAttempts)
   } else if (method=="PUT"){
     RETRY(verb = "PUT", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, times = retryAttempts)
   } else if (method=="DELETE"){
