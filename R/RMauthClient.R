@@ -97,7 +97,7 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString
   } else if (method=="POST"){
     RETRY(verb = "POST", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, pause_cap=pause_cap, times = retryAttempts)
   } else if (method=="PUT"){
-    RETRY(verb = "PUT", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, ause_cap=pause_cap, times = retryAttempts)
+    RETRY(verb = "PUT", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, pause_cap=pause_cap, times = retryAttempts)
   } else if (method=="DELETE"){
     RETRY(verb = "DELETE", url = requestURL, config = add_headers(.headers = mAuthHeader), times = retryAttempts)
   } else {
