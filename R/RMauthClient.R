@@ -15,7 +15,8 @@ RMauthClient<-setClass(
   )
 )
 
-setMethod("initialize", "RMauthClient", function(.Object, app_uuid=NULL, mauth_base_url=NULL, mauth_api_version="v1", private_key=NULL){
+setMethod("initialize", "RMauthClient", function(.Object, app_uuid=NULL, mauth_base_url=NULL, mauth_api_version="v1", private_key=NULL)
+{
   requiredConfigs<- c("app_uuid", "mauth_base_url", "mauth_api_version", "private_key")
   
   lapply(seq(1,length(requiredConfigs)), function(c){
@@ -72,9 +73,10 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", header_overrides=NULL)
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString="", retryAttempts=5, body="", header_overrides=NULL)
 {
-  
+
+  fullRoute=paste0(route, queryString)
   mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body)
   
   if(!is.null(header_overrides) && !is.null(header_overrides$`Content-Type`)){
@@ -85,15 +87,16 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", he
   }
   
   mAuthHeader<-setNames(as.character(mAuthHeader), names(mAuthHeader))
-  
+  requestURL = paste0(base_url,fullRoute)
+
   if(method=="GET")
   {
-    GET(paste(base_url,route,sep = ""), 
-        add_headers(.headers = mAuthHeader))  
+    GET(paste(requestURL,route,sep = ""), 
+        add_headers(.headers = mAuthHeader), times=retryAttempts)  
   }  else if (method=="POST"){
-    POST(paste(base_url,route,sep = ""), 
+    POST(paste(requestURL,route,sep = ""), 
          add_headers(.headers = mAuthHeader),
-         body=body,timeout(3600))
+         body=body,timeout(3600), times=retryAttempts)
   } else {
     stop("Not Supported HTTP Verb. Please use only GET or POST.")
   }
