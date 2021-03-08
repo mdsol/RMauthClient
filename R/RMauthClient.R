@@ -91,12 +91,9 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString
 
   if(method=="GET")
   {
-    GET(paste(requestURL,route,sep = ""), 
-        config=add_headers(.headers = mAuthHeader), times=retryAttempts)  
-  }  else if (method=="POST"){
-    POST(paste(requestURL,route,sep = ""), 
-         config=add_headers(.headers = mAuthHeader),
-         body=body, timeout(3600), times=retryAttempts)s
+    RETRY(verb = "GET", url = requestURL, config = add_headers(.headers = mAuthHeader), times = retryAttempts)
+  } else if (method=="POST"){
+    RETRY(verb = "POST", url = requestURL, config = add_headers(.headers = mAuthHeader), body=body, pause_cap=pause_cap, times = retryAttempts, timeout =3600)
   } else {
     stop("Not Supported HTTP Verb. Please use only GET or POST.")
   }
