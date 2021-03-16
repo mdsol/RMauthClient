@@ -92,7 +92,7 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, queryString
   if(method=="GET")
   {
     GET(paste(requestURL,route,sep = ""), 
-        add_headers(.headers = mAuthHeader))  
+        add_headers(.headers = mAuthHeader),body=body,timeout=1800)  
   }  else if (method=="POST"){
     POST(paste(requestURL,route,sep = ""), 
          add_headers(.headers = mAuthHeader),
