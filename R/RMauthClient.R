@@ -72,9 +72,10 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", header_overrides=NULL)
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", queryString="", retryAttempts=5, pause_cap=1800, header_overrides=NULL)
 {
   
+  fullRoute=paste0(route, queryString)
   mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body)
   
   if(!is.null(header_overrides) && !is.null(header_overrides$`Content-Type`)){
@@ -85,15 +86,16 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="", he
   }
   
   mAuthHeader<-setNames(as.character(mAuthHeader), names(mAuthHeader))
+  requestURL = paste0(base_url,fullRoute)
   
   if(method=="GET")
   {
-    GET(paste(base_url,route,sep = ""), 
+    GET(paste(requestURL),route,sep = ""), 
         add_headers(.headers = mAuthHeader))  
   }  else if (method=="POST"){
-    POST(paste(base_url,route,sep = ""), 
+    POST(paste(requestURL,route,sep = ""), 
          add_headers(.headers = mAuthHeader),
-         body=body)
+         body=body,pause_cap=pause_cap, times = retryAttempts)
   } else {
     stop("Not Supported HTTP Verb. Please use only GET or POST.")
   }
