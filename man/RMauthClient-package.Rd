@@ -11,7 +11,7 @@ This simple library can enable you to post and get requests via MAuth v1 in R. I
 \tabular{ll}{
 Package: \tab RMauthClient\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 1.1\cr
 Date: \tab 2015-03-03\cr
 License: \tab MIT + file LICENSE\cr
 }
