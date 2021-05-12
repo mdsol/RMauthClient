@@ -75,14 +75,15 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
 makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="")
 {
   mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body)
-  
+  h <- handle(base_url)
   if(method=="GET")
   {
     GET(paste(base_url,route,sep = ""), 
         add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`))  
   }  else if (method=="POST"){
-    POST(paste(base_url,route,sep = ""), 
-         add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`),
+#Added handle and config to post request    
+    POST(paste(handle = h,route,sep = ""), 
+         config=list(timeout(1800),add_headers(.headers = mAuthHeader)),
          body=body)
   } else {
     stop("Not Supported HTTP Verb. Please use only GET or POST.")
