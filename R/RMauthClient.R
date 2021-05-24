@@ -72,9 +72,9 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="")
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" ,timeout)
 {
-  mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body)
+  mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body, timeout)
   
   if(method=="GET")
   {
