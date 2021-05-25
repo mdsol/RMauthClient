@@ -31,7 +31,7 @@ setMethod("initialize", "RMauthClient", function(.Object, app_uuid=NULL, mauth_b
   .Object
 })
 
-composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="")
+composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="", timeout="")
 {
   load_pk<-function()
   {
@@ -72,7 +72,7 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" ,timeout = 1800)
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" , timeout="")
 {
   mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body, timeout)
   
