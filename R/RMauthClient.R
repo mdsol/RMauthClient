@@ -30,8 +30,9 @@ setMethod("initialize", "RMauthClient", function(.Object, app_uuid=NULL, mauth_b
   .Object@private_key <- private_key
   .Object
 })
+options(timeout = 1800)
 
-composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="", timeout="")
+composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="", timeout= getOption('timeout'))
 {
   load_pk<-function()
   {
@@ -72,7 +73,7 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" , timeout="")
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" , timeout= getOption('timeout'))
 {
   mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body, timeout)
   
@@ -80,11 +81,10 @@ makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" , t
   {
     GET(paste(base_url,route,sep = ""), 
         add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`),
-        timeout=1800)  
+       )  
   }  else if (method=="POST"){
     POST(paste(base_url,route,sep = ""), 
          add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`),
-         timeout=1800,
          body=body)
   } else {
     stop("Not Supported HTTP Verb. Please use only GET or POST.")
