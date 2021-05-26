@@ -30,10 +30,8 @@ setMethod("initialize", "RMauthClient", function(.Object, app_uuid=NULL, mauth_b
   .Object@private_key <- private_key
   .Object
 })
-options(timeout = 1800)
-timeout <- as.character(getOption('timeout'))
 
-composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="", timeout)
+composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="")
 {
   load_pk<-function()
   {
@@ -74,15 +72,15 @@ composeMAuthHeader<-function(RMauthClientObject, method, base_url, route, body="
   make_headers(RMauthClientObject@app_uuid, base64encode(signed_string), request_time)
 }
 
-makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="" , timeout)
+makeMAuthCall<-function(RMauthClientObject, method, base_url, route, body="")
 {
-  mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body, timeout)
+  mAuthHeader<-composeMAuthHeader(RMauthClientObject, method, base_url, route, body)
   
   if(method=="GET")
   {
     GET(paste(base_url,route,sep = ""), 
-        add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`),
-       )  
+        add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`)
+        )  
   }  else if (method=="POST"){
     POST(paste(base_url,route,sep = ""), 
          add_headers("X-MWS-Authentication" = mAuthHeader$`X-MWS-Authentication`, "X-MWS-Time"=mAuthHeader$`X-MWS-Time`, "Content-Type" = mAuthHeader$`Content-Type`),
